@@ -34,6 +34,14 @@
         "REGISTRY_PLUGINS_ONLY": {
             "description": "If set to true, only plugins that are in the registry can be loaded.",
             "required": false
+        },
+        "RUMIA_API_KEY": {
+            "description": "API key for your file server.",
+            "required": false
+        },
+        "RUMIA_URL": {
+            "description": "URL for the file server.",
+            "required": false
         }
     }
 }

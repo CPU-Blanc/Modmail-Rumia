@@ -183,6 +183,9 @@ class ConfigManager:
         "discord_log_level": "INFO",
         # data collection
         "data_collection": True,
+        # file server
+        "rumia_api_key": None,
+        "rumia_url": None,
     }
 
     colors = {"mod_color", "recipient_color", "main_color", "error_color"}

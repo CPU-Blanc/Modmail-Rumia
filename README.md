@@ -43,6 +43,10 @@
 <img src='https://i.imgur.com/fru5Q07.png' align='center' width=500>
 </div>
 
+## About
+This is a fork of [Modmail](https://github.com/modmail-dev/Modmail) patched with [Rumia](https://github.com/CPU-Blanc/Rumia) support to allow for seamless permanent attachment hosting.
+Set the `RUMIA_API_KEY` and `RUMIA_URL` env vars to use.
+
 
 ## What is Modmail?
 

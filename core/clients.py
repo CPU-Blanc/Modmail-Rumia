@@ -13,6 +13,9 @@ from pymongo.errors import ConfigurationError
 
 from core.models import InvalidConfigError, getLogger
 
+import requests
+import urllib.parse
+
 logger = getLogger(__name__)
 
 
@@ -643,6 +646,21 @@ class MongoDBClient(ApiClient):
             {"$set": {"messages.$.content": new_content, "messages.$.edited": True}},
         )
 
+    async def get_log_url(self, url) -> str:
+        rumia_url = self.bot.config["rumia_url"]
+        key = self.bot.config["rumia_api_key"]
+
+        if rumia_url is None or key is None:
+            return url
+
+        async with self.session.request(
+            "POST", rumia_url + "/api/upload/" + urllib.parse.quote(url, safe=""), headers={"x-api-key": key}
+        ) as resp:
+            if resp.status in (200, 201, 204):
+                return await resp.text()
+            else:
+                return url
+
     async def append_log(
         self,
         message: Message,
@@ -672,7 +690,7 @@ class MongoDBClient(ApiClient):
                     "filename": a.filename,
                     "is_image": a.width is not None,
                     "size": a.size,
-                    "url": a.url,
+                    "url": await self.get_log_url(a.url),
                 }
                 for a in message.attachments
             ],
